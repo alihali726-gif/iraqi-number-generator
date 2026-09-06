@@ -1,1 +1,213 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>مولد أرقام عراقية وهمية</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #111827, #1f2937);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 28px;
+    }
+
+    .description {
+      color: #d1d5db;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .number-box {
+      margin: 25px 0;
+      padding: 22px 10px;
+      background: #000;
+      border-radius: 16px;
+      font-size: 27px;
+      font-weight: bold;
+      direction: ltr;
+      letter-spacing: 1px;
+      word-break: break-all;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 22px;
+      margin: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .generate {
+      background: #22c55e;
+      color: white;
+    }
+
+    .copy {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .counter {
+      margin-top: 20px;
+      color: #d1d5db;
+      font-size: 14px;
+    }
+
+    .warning {
+      margin-top: 22px;
+      padding: 12px;
+      background: rgba(245,158,11,0.12);
+      border-radius: 10px;
+      color: #fbbf24;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    footer {
+      margin-top: 20px;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>🇮🇶 مولد أرقام عراقية</h1>
+
+    <p class="description">
+      توليد أرقام عراقية وهمية للاستخدام في الاختبار والتجارب البرمجية.
+    </p>
+
+    <div class="number-box" id="number">
+      اضغط توليد
+    </div>
+
+    <button class="generate" onclick="generateNumber()">
+      توليد رقم جديد
+    </button>
+
+    <button class="copy" onclick="copyNumber()">
+      نسخ الرقم
+    </button>
+
+    <div class="counter">
+      عدد الأرقام المولدة: <span id="counter">0</span>
+    </div>
+
+    <div class="warning">
+      ⚠️ هذه الأرقام وهمية ومخصصة للاختبار فقط، وليست أرقام هواتف حقيقية.
+    </div>
+
+    <footer>
+      Iraqi Number Generator
+    </footer>
+
+  </div>
+
+  <script>
+
+    // نخزن الأرقام التي تم توليدها حتى لا تتكرر
+    const generatedNumbers = new Set();
+
+    let totalGenerated = 0;
+
+    function generateNumber() {
+
+      let number;
+
+      do {
+
+        // يبدأ بـ 964
+        // ثم 77
+        // ثم 9 أرقام عشوائية
+        number = "96477" + randomDigits(9);
+
+      } while (generatedNumbers.has(number));
+
+      generatedNumbers.add(number);
+
+      totalGenerated++;
+
+      document.getElementById("number").textContent = number;
+
+      document.getElementById("counter").textContent = totalGenerated;
+    }
+
+    function randomDigits(length) {
+
+      let result = "";
+
+      for (let i = 0; i < length; i++) {
+
+        result += Math.floor(Math.random() * 10);
+
+      }
+
+      return result;
+    }
+
+    function copyNumber() {
+
+      const number =
+        document.getElementById("number").textContent;
+
+      if (!number.startsWith("964")) {
+        alert("ولد رقم أولاً");
+        return;
+      }
+
+      navigator.clipboard.writeText(number)
+        .then(() => {
+          alert("تم نسخ الرقم ✅");
+        })
+        .catch(() => {
+          alert("تعذر نسخ الرقم");
+        });
+    }
+
+  </script>
+
+</body>
+</html>
+```
