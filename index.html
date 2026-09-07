@@ -1,30 +1,566 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مولد الأرقام العراقية</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>مولد الأرقام العراقية</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Tahoma, Arial, sans-serif;
+    background:
+        radial-gradient(circle at top right, #1d4ed8 0%, transparent 35%),
+        radial-gradient(circle at bottom left, #0ea5e9 0%, transparent 30%),
+        #07152f;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+}
+
+.container {
+    width: 100%;
+    max-width: 620px;
+}
+
+.card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 28px;
+    padding: 35px;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+    backdrop-filter: blur(18px);
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    box-shadow: 0 10px 30px rgba(37,99,235,0.35);
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #b8c7e6;
+    margin: 12px 0 28px;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.number-card {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 25px 15px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.number {
+    direction: ltr;
+    font-size: 34px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    word-break: break-all;
+    color: #fff;
+}
+
+.number-label {
+    color: #8fa8d4;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+button {
+    border: none;
+    border-radius: 14px;
+    padding: 15px 10px;
+    font-size: 15px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.primary {
+    background: linear-gradient(135deg, #2563eb, #0ea5e9);
+    color: white;
+    box-shadow: 0 8px 22px rgba(37,99,235,0.3);
+}
+
+.secondary {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.section {
+    margin-top: 25px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #dbeafe;
+}
+
+.quantity {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px;
+}
+
+.quantity button {
+    background: rgba(255,255,255,0.08);
+    color: #dbeafe;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 11px 5px;
+    font-size: 13px;
+}
+
+.quantity button:hover {
+    background: rgba(37,99,235,0.35);
+}
+
+.results {
+    margin-top: 18px;
+    display: none;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.results-title {
+    font-size: 14px;
+    color: #dbeafe;
+}
+
+.copy-all {
+    background: #0ea5e9;
+    color: white;
+    padding: 9px 13px;
+    font-size: 12px;
+}
+
+.list {
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.2);
+    border-radius: 15px;
+    padding: 8px;
+}
+
+.number-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 11px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.number-item:last-child {
+    border-bottom: none;
+}
+
+.number-item span {
+    direction: ltr;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.small-copy {
+    background: rgba(37,99,235,0.3);
+    color: #fff;
+    padding: 7px 10px;
+    font-size: 11px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.stat-label {
+    color: #8fa8d4;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.notice {
+    margin-top: 20px;
+    background: rgba(14,165,233,0.1);
+    border: 1px solid rgba(14,165,233,0.2);
+    border-radius: 13px;
+    padding: 12px;
+    text-align: center;
+    color: #9fdcff;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #0f172a;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 12px 20px;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    font-size: 13px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 500px) {
+
+    .card {
+        padding: 25px 18px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .number {
+        font-size: 26px;
+    }
+
+    .quantity {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .buttons {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<h1>🇮🇶 مولد أرقام عراقية وهمية</h1>
+<div class="container">
 
-<h2 id="number">اضغط الزر</h2>
+<div class="card">
 
-<button onclick="generateNumber()">توليد رقم جديد</button>
+    <div class="logo">🇮🇶</div>
+
+    <h1>مولد الأرقام العراقية</h1>
+
+    <div class="subtitle">
+        إنشاء أرقام عراقية وهمية للاستخدام في الاختبار والتجارب
+    </div>
+
+    <div class="number-card">
+
+        <div class="number-label">الرقم الحالي</div>
+
+        <div class="number" id="mainNumber">
+            +9647700000000
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <button class="primary" onclick="generateOne()">
+            🔄 توليد رقم جديد
+        </button>
+
+        <button class="secondary" onclick="copyMain()">
+            📋 نسخ الرقم
+        </button>
+
+    </div>
+
+    <div class="section">
+
+        <div class="section-title">
+            توليد عدة أرقام
+        </div>
+
+        <div class="quantity">
+
+            <button onclick="generateMany(5)">5</button>
+            <button onclick="generateMany(10)">10</button>
+            <button onclick="generateMany(25)">25</button>
+            <button onclick="generateMany(50)">50</button>
+            <button onclick="generateMany(100)">100</button>
+
+        </div>
+
+    </div>
+
+    <div class="results" id="results">
+
+        <div class="results-header">
+
+            <div class="results-title">
+                الأرقام المولدة
+            </div>
+
+            <button class="copy-all" onclick="copyAll()">
+                📋 نسخ الكل
+            </button>
+
+        </div>
+
+        <div class="list" id="numberList"></div>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="stat-number" id="generatedCount">0</div>
+            <div class="stat-label">تم التوليد</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-number" id="sessionCount">0</div>
+            <div class="stat-label">هذه الجلسة</div>
+        </div>
+
+    </div>
+
+    <div class="notice">
+        ⚠️ جميع الأرقام المولدة وهمية ومخصصة للاختبار فقط،
+        وليست أرقام هواتف حقيقية.
+    </div>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast">
+    تم النسخ بنجاح ✓
+</div>
 
 <script>
-function generateNumber() {
-    let number = "+96477";
 
-    for (let i = 0; i < 9; i++) {
-        number += Math.floor(Math.random() * 10);
+let generatedNumbers = new Set();
+let allNumbers = [];
+let sessionCount = 0;
+
+function createNumber() {
+
+    let number;
+
+    do {
+
+        number = "+964770";
+
+        for (let i = 0; i < 7; i++) {
+            number += Math.floor(Math.random() * 10);
+        }
+
+    } while (generatedNumbers.has(number));
+
+    generatedNumbers.add(number);
+
+    return number;
+}
+
+function generateOne() {
+
+    const number = createNumber();
+
+    allNumbers.push(number);
+
+    sessionCount++;
+
+    document.getElementById("mainNumber").textContent = number;
+
+    updateStats();
+
+}
+
+function generateMany(count) {
+
+    const newNumbers = [];
+
+    for (let i = 0; i < count; i++) {
+
+        const number = createNumber();
+
+        newNumbers.push(number);
+        allNumbers.push(number);
+
     }
 
-    document.getElementById("number").innerText = number;
+    sessionCount += count;
+
+    document.getElementById("mainNumber").textContent =
+        newNumbers[newNumbers.length - 1];
+
+    showResults(newNumbers);
+
+    updateStats();
+
 }
+
+function showResults(numbers) {
+
+    const results = document.getElementById("results");
+    const list = document.getElementById("numberList");
+
+    results.style.display = "block";
+
+    list.innerHTML = "";
+
+    numbers.forEach(number => {
+
+        const item = document.createElement("div");
+
+        item.className = "number-item";
+
+        item.innerHTML = `
+            <span>${number}</span>
+            <button class="small-copy"
+                    onclick="copyText('${number}')">
+                نسخ
+            </button>
+        `;
+
+        list.appendChild(item);
+
+    });
+
+}
+
+function copyMain() {
+
+    const number =
+        document.getElementById("mainNumber").textContent;
+
+    copyText(number);
+
+}
+
+function copyText(text) {
+
+    navigator.clipboard.writeText(text)
+        .then(() => showToast())
+        .catch(() => {
+
+            const textarea = document.createElement("textarea");
+
+            textarea.value = text;
+
+            document.body.appendChild(textarea);
+
+            textarea.select();
+
+            document.execCommand("copy");
+
+            textarea.remove();
+
+            showToast();
+
+        });
+
+}
+
+function copyAll() {
+
+    if (allNumbers.length === 0) {
+
+        showToast("ماكو أرقام للنسخ");
+
+        return;
+    }
+
+    const text = allNumbers.join("\n");
+
+    copyText(text);
+
+}
+
+function updateStats() {
+
+    document.getElementById("generatedCount").textContent =
+        generatedNumbers.size;
+
+    document.getElementById("sessionCount").textContent =
+        sessionCount;
+
+}
+
+function showToast(message = "تم النسخ بنجاح ✓") {
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 1800);
+
+}
+
 </script>
 
 </body>
 </html>
+```
