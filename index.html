@@ -402,14 +402,21 @@ let sessionCount = 0;
 function createNumber() {
 
     let number;
+    let rawNumber;
 
     do {
 
-        number = "+96477";
+        rawNumber = "770";
 
         for (let i = 0; i < 7; i++) {
-            number += Math.floor(Math.random() * 10);
+            rawNumber += Math.floor(Math.random() * 10);
         }
+
+        number =
+            "+964 " +
+            rawNumber.substring(0, 3) + " " +
+            rawNumber.substring(3, 6) + " " +
+            rawNumber.substring(6, 10);
 
     } while (generatedNumbers.has(number));
 
